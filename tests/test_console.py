@@ -120,3 +120,41 @@ class TestShow(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as output:
             HBNBCommand().onecmd("show User {}".format(model.id))
         self.assertEqual(expected_out, output.getvalue())
+
+
+class TestDestroy(unittest.TestCase):
+    """test destroy feature in console"""
+    def test_no_class(self):
+        """test if no class is entered"""
+        correct = "** class name missing **\n"
+        with patch('sys.stdout', new=StringIO()) as output:
+            HBNBCommand().onecmd("destroy")
+        self.assertEqual(correct, output.getvalue())
+
+    def test_wrong_class(self):
+        """test with wrong class"""
+        correct = "** class doesn't exist **\n"
+        with patch('sys.stdout', new=StringIO()) as output:
+            HBNBCommand().onecmd("destroy Myclass")
+        self.assertEqual(correct, output.getvalue())
+
+    def test_class_no_id(self):
+        """test class with no id"""
+        correct = "** instance id missing **\n"
+        with patch('sys.stdout', new=StringIO()) as output:
+            HBNBCommand().onecmd("destroy BaseModel")
+        self.assertEqual(correct, output.getvalue())
+
+    def test_correct_output(self):
+        """test correct command"""
+        with patch('sys.stdout', new=StringIO()) as output:
+            HBNBCommand().onecmd("create BaseModel")
+        test_id = output.getvalue().strip()
+        with patch('sys.stdout', new=StringIO()) as output:
+            instance = models.storage.all()["BaseModel.{}".format(test_id)]
+            HBNBCommand().onecmd("destroy BaseModel.{}".format(test_id))
+            self.assertNotIn(instance, models.storage.all())
+
+
+if __name__ == "__main__":
+    unittest.main()
