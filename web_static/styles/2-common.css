@@ -1,0 +1,9 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+p {
+    position: relative;
+    top: 5px;
+    text-align: center;
+}
