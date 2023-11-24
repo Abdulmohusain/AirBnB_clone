@@ -1,8 +1,10 @@
 .amenities {
+    display: inline-block;
     background-color: white;
     height: 100%;
     width: 25%;
     text-indent: 50px;
+    margin-left: -4px;
 }
 .container {
     position: relative;
@@ -17,11 +19,9 @@
     border: 1px solid #DDDDDD;
     border-radius: 4px;
 }
-.flex-container {
-    display: flex;
-    gap: 0px;
-}
+
 .locations {
+    display: inline-block;
     background-color: white;
     height: 100%;
     width: 25%;
